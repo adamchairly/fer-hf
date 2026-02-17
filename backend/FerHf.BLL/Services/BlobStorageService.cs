@@ -12,12 +12,12 @@ public partial class BlobStorageService : IBlobStorageService
 
     public BlobStorageService(IConfiguration configuration)
     {
-        var connectionString = configuration["AzureBlobStorage:ConnectionString"]
-            ?? throw new InvalidOperationException("AzureBlobStorage:ConnectionString is not configured.");
-        var containerName = configuration["AzureBlobStorage:ContainerName"]
-            ?? throw new InvalidOperationException("AzureBlobStorage:ContainerName is not configured.");
+        var connectionString = configuration["BlobStorage:ConnectionString"]
+            ?? throw new InvalidOperationException("BlobStorage:ConnectionString is not configured.");
+        var containerName = configuration["BlobStorage:ContainerName"]
+            ?? throw new InvalidOperationException("BlobStorage:ContainerName is not configured.");
 
-        _publicBaseUrl = configuration["AzureBlobStorage:PublicBaseUrl"];
+        _publicBaseUrl = configuration["BlobStorage:PublicBaseUrl"];
 
         var serviceClient = new BlobServiceClient(connectionString);
         _containerClient = serviceClient.GetBlobContainerClient(containerName);

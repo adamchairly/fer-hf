@@ -33,9 +33,9 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
       ConnectionStrings__DefaultConnection: "Server=mssql,1433;Database=${MSSQL_DATABASE:-FerHf};User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=true"
-      AzureBlobStorage__ConnectionString: ${AZURE_BLOB_CONNECTION_STRING:-DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1}
-      AzureBlobStorage__ContainerName: ${AZURE_BLOB_CONTAINER:-fer-hf}
-      AzureBlobStorage__PublicBaseUrl: ${AZURE_BLOB_PUBLIC_BASE_URL:-http://localhost:${AZURITE_BLOB_PORT:-10000}/devstoreaccount1}
+      BlobStorage__ConnectionString: ${BLOB_CONNECTION_STRING:-DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1}
+      BlobStorage__ContainerName: ${BLOB_CONTAINER:-fer-hf}
+      BlobStorage__PublicBaseUrl: ${BLOB_PUBLIC_BASE_URL:-http://localhost:${AZURITE_BLOB_PORT:-10000}/devstoreaccount1}
       AllowedOrigins__0: ${ALLOWED_ORIGINS:-http://localhost:3000}
     depends_on:
       mssql:

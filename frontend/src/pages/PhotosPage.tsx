@@ -1,25 +1,31 @@
-import { useEffect, useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router';
-import { getPhotos, uploadPhoto, deletePhoto, type PhotoDto } from '../api/photos';
-import { logout } from '../api/auth';
-import Lightbox from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useNavigate } from "react-router";
+import {
+  getPhotos,
+  uploadPhoto,
+  deletePhoto,
+  type PhotoDto,
+} from "../api/photos";
+import { logout } from "../api/auth";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 export default function PhotosPage() {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState<PhotoDto[]>([]);
-  const [sort, setSort] = useState<string>('date');
+  const [sort, setSort] = useState<string>("date");
   const [lightboxIndex, setLightboxIndex] = useState(-1);
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function fetchPhotos() {
     try {
       const data = await getPhotos(sort);
       setPhotos(data);
     } catch {
-      navigate('/login');
+      navigate("/login");
     }
   }
 
@@ -29,24 +35,25 @@ export default function PhotosPage() {
 
   async function handleUpload(e: FormEvent) {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!name || !file) {
-      setError('Name and file are required.');
+      setError("Name and file are required.");
       return;
     }
     if (name.length > 40) {
-      setError('Name must be at most 40 characters.');
+      setError("Name must be at most 40 characters.");
       return;
     }
 
     try {
       await uploadPhoto(name, file);
-      setName('');
+      setName("");
       setFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
       await fetchPhotos();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Upload failed.');
+      setError(err instanceof Error ? err.message : "Upload failed.");
     }
   }
 
@@ -55,13 +62,13 @@ export default function PhotosPage() {
       await deletePhoto(id);
       setPhotos((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Delete failed.');
+      setError(err instanceof Error ? err.message : "Delete failed.");
     }
   }
 
   async function handleLogout() {
     await logout();
-    navigate('/login');
+    navigate("/login");
   }
 
   return (
@@ -95,14 +102,25 @@ export default function PhotosPage() {
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div>
+          <div className="flex items-center gap-2">
             <input
+              ref={fileInputRef}
               type="file"
               accept="image/*"
               required
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="text-sm"
+              className="hidden"
             />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition cursor-pointer"
+            >
+              Choose file
+            </button>
+            <span className="text-sm text-gray-500 truncate max-w-48">
+              {file ? file.name : "No file chosen"}
+            </span>
           </div>
           <button
             type="submit"
@@ -112,22 +130,20 @@ export default function PhotosPage() {
           </button>
         </form>
 
-        {error && (
-          <p className="text-red-600 text-sm">{error}</p>
-        )}
+        {error && <p className="text-red-600 text-sm">{error}</p>}
 
         {/* Sort toggle */}
         <div className="flex gap-2 text-sm">
           <span className="text-gray-600">Sort by:</span>
           <button
-            onClick={() => setSort('name')}
-            className={`cursor-pointer ${sort === 'name' ? 'font-bold text-blue-600' : 'text-gray-500 hover:text-gray-800'}`}
+            onClick={() => setSort("name")}
+            className={`cursor-pointer ${sort === "name" ? "font-bold text-blue-600" : "text-gray-500 hover:text-gray-800"}`}
           >
             Name
           </button>
           <button
-            onClick={() => setSort('date')}
-            className={`cursor-pointer ${sort === 'date' ? 'font-bold text-blue-600' : 'text-gray-500 hover:text-gray-800'}`}
+            onClick={() => setSort("date")}
+            className={`cursor-pointer ${sort === "date" ? "font-bold text-blue-600" : "text-gray-500 hover:text-gray-800"}`}
           >
             Date
           </button>
@@ -135,7 +151,9 @@ export default function PhotosPage() {
 
         {/* Photo list */}
         {photos.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">No photos yet. Upload one above!</p>
+          <p className="text-gray-500 text-center py-8">
+            No photos yet. Upload one above!
+          </p>
         ) : (
           <div className="grid gap-3">
             {photos.map((photo, index) => (
@@ -148,7 +166,9 @@ export default function PhotosPage() {
                   className="text-left flex-1 cursor-pointer hover:text-blue-600 transition"
                 >
                   <span className="font-medium">{photo.name}</span>
-                  <span className="text-gray-500 text-sm ml-3">{photo.date}</span>
+                  <span className="text-gray-500 text-sm ml-3">
+                    {photo.date}
+                  </span>
                 </button>
                 <button
                   onClick={() => handleDelete(photo.id)}
