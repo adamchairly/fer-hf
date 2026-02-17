@@ -1,0 +1,6 @@
+@FerHf.API_HostAddress = http://localhost:5179
+
+GET {{FerHf.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

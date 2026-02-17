@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="FerHf.API/FerHf.API.csproj" />
+  <Project Path="FerHf.BLL/FerHf.BLL.csproj" />
+  <Project Path="FerHf.DAL/FerHf.DAL.csproj" />
+</Solution>
