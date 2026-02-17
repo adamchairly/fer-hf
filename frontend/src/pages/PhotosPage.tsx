@@ -74,7 +74,10 @@ export default function PhotosPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow px-6 py-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold">My Photos</h1>
+        <div className="flex items-center gap-2">
+          <img src="/logo.svg" alt="PhotoAlbum logo" className="h-8 w-8" />
+          <h1 className="text-xl font-bold">PhotoAlbum</h1>
+        </div>
         <button
           onClick={handleLogout}
           className="text-sm text-red-600 hover:underline cursor-pointer"
