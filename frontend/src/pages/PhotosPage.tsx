@@ -87,40 +87,42 @@ export default function PhotosPage() {
         {/* Upload form */}
         <form
           onSubmit={handleUpload}
-          className="bg-white p-4 rounded-lg shadow flex flex-col sm:flex-row gap-3 items-end"
+          className="bg-white p-4 rounded-lg shadow flex flex-col gap-3"
         >
-          <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Photo name (max 40 chars)
-            </label>
-            <input
-              type="text"
-              maxLength={40}
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              required
-              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition cursor-pointer"
-            >
-              Choose file
-            </button>
-            <span className="text-sm text-gray-500 truncate max-w-48">
-              {file ? file.name : "No file chosen"}
-            </span>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Photo name (max 40 chars)
+              </label>
+              <input
+                type="text"
+                maxLength={40}
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex items-end gap-2 min-w-0">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                required
+                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition cursor-pointer shrink-0"
+              >
+                Choose file
+              </button>
+              <span className="text-sm text-gray-500 truncate min-w-0">
+                {file ? file.name : "No file chosen"}
+              </span>
+            </div>
           </div>
           <button
             type="submit"
