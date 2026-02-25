@@ -25,7 +25,17 @@ Homework documentation for Felhőalapú elosztott rendszerek laboratórium - BME
 - Frontend: Vercel (free and gives seamless continous deployement experience straight from github)
 - Created subdomains on my existing domain for api and for frontend
 
+## Continuous Deployment
+
+- The frontend is automatically built and deployed by Vercel on every push to the `main` branch. 
+- For the backend, a GitHub Actions workflow (`deploy-backend.yml`) builds a Docker image, pushes it to Docker Hub, and triggers an Azure App Service redeployment with the updated container image. 
+- Push -> frontend -> vercel
+- Push -> if change in /backend -> deploy-backend workflow -> builds image -> pushes to Docker Hub -> Azure App Service redeploys
+
+> Authentication to Docker Hub is made view repo secrets
+
 ## Live instances
 
 - Backend: https://api.szekelyadam.com
-- Frontend: https://fer-hf.szekelyadam.com
+- Frontend: https://fer-hf.szekelyadam.com\
+- Docker hub: https://hub.docker.com/r/adamchairly/fer-hf-backend
