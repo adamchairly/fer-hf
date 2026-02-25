@@ -21,6 +21,8 @@ public partial class BlobStorageService : IBlobStorageService
 
         var serviceClient = new BlobServiceClient(connectionString);
         _containerClient = serviceClient.GetBlobContainerClient(containerName);
+
+        //
     }
 
     public async Task<string> UploadAsync(string userId, string fileName, Stream content, string contentType)
