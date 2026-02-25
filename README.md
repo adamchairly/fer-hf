@@ -1,5 +1,7 @@
 # Webalkalmazás PaaS köryezetben 1-2
 
+Homework documentation for Felhőalapú elosztott rendszerek laboratórium - BMEVIIIMB12 2025/26/2 course.
+
 ## Technologies
 
 - Database: MSSQL
