@@ -1,10 +1,12 @@
 # Webalkalmazás PaaS köryezetben 1-2
 
+Homework documentation for Felhőalapú elosztott rendszerek laboratórium - BMEVIIIMB12 2025/26/2 course.
+
 ## Technologies
 
 - Database: MSSQL
 - Backend: C#, .NET
-- Frontend: Typescript, React
+- Frontend: Typescript, React, Vite
 - Local: Docker Compose
 
 - The project can be run and tested locally using Docker Compose, and Azurite (for azure blob storage emulation)
