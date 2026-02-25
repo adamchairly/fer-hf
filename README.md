@@ -6,7 +6,7 @@ Homework documentation for Felhőalapú elosztott rendszerek laboratórium - BME
 
 - Database: MSSQL
 - Backend: C#, .NET
-- Frontend: Typescript, React
+- Frontend: Typescript, React, Vite
 - Local: Docker Compose
 
 - The project can be run and tested locally using Docker Compose, and Azurite (for azure blob storage emulation)
